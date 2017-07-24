@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css" media="screen">
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p class="tc">欢迎注册</p>
+    </div>
+    <div class="panel-body m15">
+    <div class="form-group">
+        <div class="input-group">
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                            </span>
+            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+            <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" placeholder="请再次输入密码" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" id="registerSubmit">注册</button>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-info col-sm-2 btn-block" id="loginSubmit">登录</button>
+    </div>
+    </div>
+    </div>
+<script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#loginSubmit").click(function(){
+			location.href = 'login';
+		});
+		$("#registerSubmit").click(function(){
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var passwordRepeat = $("#passwordRepeat").val();
+			if(password !== passwordRepeat){
+				$("#password").css("border","1px solid red");
+				$("#passwordRepeat").css("border","1px solid red");
+			}else if(password === passwordRepeat){
+			var data = {"uname":username,"upwd":password};
+			$.ajax({
+				url: '/addUser',
+				type: 'post',
+				data: data,
+				success: function(data,status){
+					if(status == 'success'){
+						location.href = 'login';
+					}
+				},
+				error: function(data,err){
+						location.href = 'register';
+				}
+			});
+		}
+		});
+	});
+</script>
+</body>
+</html>
