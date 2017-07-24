@@ -60,7 +60,7 @@
 			}else if(password === passwordRepeat){
 			var data = {"uname":username,"upwd":password};
 			$.ajax({
-				url: '/addUser',
+				url: '/register',
 				type: 'post',
 				data: data,
 				success: function(data,status){
